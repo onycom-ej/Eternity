@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -1205,18 +1206,38 @@ public class MainActivity extends BaseActivity implements SortTypeSelectionCallb
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int itemId = item.getItemId();
         if (itemId == R.id.action_search_main_activity) {
-            Intent intent = new Intent(this, SearchActivity.class);
+           // Intent intent = new Intent(this, SearchActivity.class);
+            Intent intent = new Intent(this, WebViewActivity.class);
+            Uri uri = Uri.parse("https://imqa.io");
+            intent.setData(uri);
             startActivity(intent);
             return true;
         } else if (itemId == R.id.action_sort_main_activity) {
-            changeSortType();
+            Intent intent = new Intent(this, WebViewActivity.class);
+            Uri uri =Uri.parse("https://blog.imqa.io/");
+            intent.setData(uri);
+            startActivity(intent);
+            //changeSortType();
             return true;
-        } else if (itemId == R.id.action_refresh_main_activity) {
-            sectionsPagerAdapter.refresh();
-            mFetchUserInfoSuccess = false;
-            loadUserData();
-            return true;
-        } else if (itemId == R.id.action_change_post_layout_main_activity) {
+        } else if (itemId == R.id.action_crash) {
+            int a = 1/0;
+        }
+        else if (itemId == R.id.action_anr) {
+        try {
+            Thread.sleep(15000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return true;
+
+    }else if (itemId == R.id.action_refresh_main_activity)
+
+    {
+        sectionsPagerAdapter.refresh();
+        mFetchUserInfoSuccess = false;
+        loadUserData();
+        return true;
+    } else if (itemId == R.id.action_change_post_layout_main_activity) {
             PostLayoutBottomSheetFragment postLayoutBottomSheetFragment = new PostLayoutBottomSheetFragment();
             postLayoutBottomSheetFragment.show(getSupportFragmentManager(), postLayoutBottomSheetFragment.getTag());
             return true;

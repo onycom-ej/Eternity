@@ -8,7 +8,7 @@
         android:id="@+id/action_search_main_activity"
         android:orderInCategory="1"
         android:title="@string/action_search"
-        android:icon="@drawable/ic_search_toolbar_24dp"
+        android:icon="@drawable/ic_anonymous_24dp"
         app:showAsAction="ifRoom" />
 
     <item
@@ -17,16 +17,29 @@
         android:title="@string/action_sort"
         android:icon="@drawable/ic_sort_toolbar_24dp"
         app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_crash"
+        android:orderInCategory="3"
+        android:title="Crash"
+        android:icon="@drawable/ic_anonymous_24dp"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_anr"
+        android:orderInCategory="4"
+        android:title="ANR"
+        android:icon="@drawable/ic_sort_toolbar_24dp"
+        app:showAsAction="ifRoom" />
+
 
     <item
         android:id="@+id/action_refresh_main_activity"
-        android:orderInCategory="3"
+        android:orderInCategory="5"
         android:title="@string/action_refresh"
         app:showAsAction="never" />
 
     <item
         android:id="@+id/action_change_post_layout_main_activity"
-        android:orderInCategory="5"
+        android:orderInCategory="6"
         android:title="@string/action_change_post_layout"
         app:showAsAction="never" />
 </menu>

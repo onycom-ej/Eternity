@@ -37,6 +37,9 @@ import eu.toldi.infinityforlemmy.customtheme.CustomThemeWrapper;
 import eu.toldi.infinityforlemmy.customviews.LollipopBugFixedWebView;
 import eu.toldi.infinityforlemmy.utils.SharedPreferencesUtils;
 import eu.toldi.infinityforlemmy.utils.Utils;
+import io.imqa.crash.webview.WebViewErrorBridge;
+import io.imqa.mpm.IMQAMpmAgent;
+import io.imqa.mpm.network.webview.WebviewInterface;
 
 public class WebViewActivity extends BaseActivity {
 
@@ -87,6 +90,9 @@ public class WebViewActivity extends BaseActivity {
 
         webView.getSettings().setJavaScriptEnabled(true);
         webView.getSettings().setDomStorageEnabled(true);
+        WebviewInterface imqaJavascript = new WebviewInterface();
+        imqaJavascript.setWebViewErrorBridge(new WebViewErrorBridge());
+        webView.addJavascriptInterface(imqaJavascript, "ImqaBridge");
 
         url = getIntent().getDataString();
         if (savedInstanceState == null) {

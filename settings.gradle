@@ -1,1 +1,14 @@
+
+pluginManagement {
+    repositories {
+        gradlePluginPortal()
+        google()
+        mavenCentral()
+        maven {
+            url("https://s01.oss.sonatype.org/content/repositories/snapshots/")
+            allowInsecureProtocol(true)
+        }
+    }
+}
+
 include ':app'

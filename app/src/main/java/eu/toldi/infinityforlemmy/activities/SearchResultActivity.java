@@ -76,6 +76,7 @@ import eu.toldi.infinityforlemmy.subreddit.SubredditData;
 import eu.toldi.infinityforlemmy.utils.APIUtils;
 import eu.toldi.infinityforlemmy.utils.SharedPreferencesUtils;
 import eu.toldi.infinityforlemmy.utils.Utils;
+import io.imqa.mpm.IMQAMpmAgent;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -920,4 +921,11 @@ public class SearchResultActivity extends BaseActivity implements SortTypeSelect
             mSliderPanel.unlock();
         }
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        IMQAMpmAgent.getInstance().endScreen("커스텀");
+    }
+
 }

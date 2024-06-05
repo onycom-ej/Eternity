@@ -121,6 +121,7 @@ import eu.toldi.infinityforlemmy.utils.APIUtils;
 import eu.toldi.infinityforlemmy.utils.LemmyUtils;
 import eu.toldi.infinityforlemmy.utils.SharedPreferencesUtils;
 import eu.toldi.infinityforlemmy.utils.Utils;
+import io.imqa.mpm.IMQAMpmAgent;
 import io.noties.markwon.AbstractMarkwonPlugin;
 import io.noties.markwon.Markwon;
 import io.noties.markwon.MarkwonConfiguration;
@@ -292,6 +293,8 @@ public class ViewUserDetailActivity extends BaseActivity implements SortTypeSele
         setTransparentStatusBarAfterToolbarCollapsed();
 
         super.onCreate(savedInstanceState);
+        IMQAMpmAgent.getInstance().startScreen("커스텀");
+
 
         setContentView(R.layout.activity_view_user_detail);
 

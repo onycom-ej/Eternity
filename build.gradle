@@ -5,11 +5,16 @@ buildscript {
         google()
         mavenCentral()
         maven { url "https://jitpack.io" }
+        maven {
+            url("https://s01.oss.sonatype.org/content/repositories/snapshots/")
+            allowInsecureProtocol(true)
+        }
         jcenter()
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:7.4.2'
         classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.8.20'
+        classpath 'io.imqa:imqa-mpm-injector:2.27.11-SNAPSHOT'
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
@@ -22,6 +27,10 @@ allprojects {
         google()
         mavenCentral()
         maven { url "https://jitpack.io" }
+        maven {
+            url("https://s01.oss.sonatype.org/content/repositories/snapshots/")
+            allowInsecureProtocol(true)
+        }
         jcenter()
     }
 }

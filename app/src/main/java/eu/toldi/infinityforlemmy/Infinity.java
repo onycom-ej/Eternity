@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.WindowManager;
 import android.widget.Toast;
 
@@ -44,6 +45,8 @@ import eu.toldi.infinityforlemmy.font.FontFamily;
 import eu.toldi.infinityforlemmy.font.TitleFontFamily;
 import eu.toldi.infinityforlemmy.utils.SharedPreferencesUtils;
 import eu.toldi.infinityforlemmy.utils.Utils;
+import io.imqa.core.logs.IdentifierCollector;
+
 import okhttp3.Call;
 import okhttp3.OkHttpClient;
 
@@ -75,6 +78,41 @@ public class Infinity extends Application implements LifecycleObserver {
                 .create(this);
 
         mAppComponent.inject(this);
+
+        io.imqa.core.IMQAOption imqaOption = new io.imqa.core.IMQAOption();
+        imqaOption.setBuildType(false);
+        imqaOption.setUploadPeriod(true);
+        imqaOption.setCrashDirectUploadFlag(true);
+        imqaOption.setKeepFileAtUploadFail(false);
+
+        imqaOption.setHttpTracing(true);
+        imqaOption.setPrintLog(true);
+        imqaOption.setBehaviorTracing(true);
+        imqaOption.setEventTracing(true);
+        imqaOption.setDumpInterval(5000);
+        imqaOption.setFileInterval(1);
+//
+        imqaOption.setServerUrl("http://121.0.136.27:3980/");
+        imqaOption.setCrashServerUrl("http://121.0.136.27:3980/");
+        io.imqa.mpm.IMQAMpmAgent.getInstance()
+                .setOption(imqaOption)
+                .setContext(this, "")
+                .setProjectKey("$2a$05$.w3hyluzp8ziuCu.LDCH4eZp7GV5YOY1LqU9l6hd.HnP/Lku/94Fy^#1U8389ATPE/szowZGlK27A==")
+                .init();
+
+        new Thread(() -> {
+            try {
+                Thread.sleep(2000);
+                IdentifierCollector.setCustomUserId("DingDong");
+                IdentifierCollector.setCustomUserName("DangDong");
+                IdentifierCollector.setCustomUserMail("Dingdong@dang.ddong");
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }).start();
+
+        Log.d("IMQAAAA",imqaOption.getProjectKey());
+        Log.d("IMQAAAA",imqaOption.getServerUrl());
 
         appLock = mSecuritySharedPreferences.getBoolean(SharedPreferencesUtils.APP_LOCK, false);
         appLockTimeout = Long.parseLong(mSecuritySharedPreferences.getString(SharedPreferencesUtils.APP_LOCK_TIMEOUT, "600000"));
