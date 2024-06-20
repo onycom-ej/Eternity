@@ -92,4 +92,9 @@
         app:title="@string/settings_about_master_title"
         app:fragment="eu.toldi.infinityforlemmy.settings.AboutPreferenceFragment" />
 
+    <eu.toldi.infinityforlemmy.customviews.CustomFontPreference
+        android:icon="@drawable/ic_about_24dp"
+        app:title="IMQA 설정"
+        app:fragment="eu.toldi.infinityforlemmy.settings.SettheImqaFragment" />
+
 </androidx.preference.PreferenceScreen>

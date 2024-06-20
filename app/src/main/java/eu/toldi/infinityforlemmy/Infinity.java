@@ -43,6 +43,7 @@ import eu.toldi.infinityforlemmy.events.ToggleSecureModeEvent;
 import eu.toldi.infinityforlemmy.font.ContentFontFamily;
 import eu.toldi.infinityforlemmy.font.FontFamily;
 import eu.toldi.infinityforlemmy.font.TitleFontFamily;
+import eu.toldi.infinityforlemmy.settings.SettheImqaFragment;
 import eu.toldi.infinityforlemmy.utils.SharedPreferencesUtils;
 import eu.toldi.infinityforlemmy.utils.Utils;
 import io.imqa.core.logs.IdentifierCollector;
@@ -63,13 +64,13 @@ public class Infinity extends Application implements LifecycleObserver {
     @Inject
     @Named("default")
     SharedPreferences mSharedPreferences;
+
     @Inject
     @Named("security")
     SharedPreferences mSecuritySharedPreferences;
     @Inject
     @Named("glide")
     OkHttpClient glideOkHttpClient;
-
     @Override
     public void onCreate() {
         super.onCreate();
@@ -78,6 +79,11 @@ public class Infinity extends Application implements LifecycleObserver {
                 .create(this);
 
         mAppComponent.inject(this);
+        String serverValue = mSharedPreferences.getString("edit_server", "");
+        String keyValue = mSharedPreferences.getString("edit_project", "");
+        String IDValue = mSharedPreferences.getString("edit_customID", "");
+        String EmailValue = mSharedPreferences.getString("edit_customEmail", "");
+        String NameValue = mSharedPreferences.getString("edit_customName", "");
 
         io.imqa.core.IMQAOption imqaOption = new io.imqa.core.IMQAOption();
         imqaOption.setBuildType(false);
@@ -92,20 +98,21 @@ public class Infinity extends Application implements LifecycleObserver {
         imqaOption.setDumpInterval(5000);
         imqaOption.setFileInterval(1);
 //
-        imqaOption.setServerUrl("http://121.0.136.27:3980/");
-        imqaOption.setCrashServerUrl("http://121.0.136.27:3980/");
+        imqaOption.setServerUrl(serverValue);
+        imqaOption.setCrashServerUrl(serverValue);
+
         io.imqa.mpm.IMQAMpmAgent.getInstance()
                 .setOption(imqaOption)
                 .setContext(this, "")
-                .setProjectKey("$2a$05$.w3hyluzp8ziuCu.LDCH4eZp7GV5YOY1LqU9l6hd.HnP/Lku/94Fy^#1U8389ATPE/szowZGlK27A==")
+                .setProjectKey(keyValue)
                 .init();
 
         new Thread(() -> {
             try {
                 Thread.sleep(2000);
-                IdentifierCollector.setCustomUserId("DingDong");
-                IdentifierCollector.setCustomUserName("DangDong");
-                IdentifierCollector.setCustomUserMail("Dingdong@dang.ddong");
+                IdentifierCollector.setCustomUserId(IDValue);
+                IdentifierCollector.setCustomUserName(NameValue);
+                IdentifierCollector.setCustomUserMail(EmailValue);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

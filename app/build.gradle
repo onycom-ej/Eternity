@@ -22,7 +22,7 @@ android {
         minSdk 21
         targetSdk 33
         versionCode 131
-        versionName "0.2.1"
+        versionName "2.2"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         javaCompileOptions {
             annotationProcessorOptions {
@@ -272,10 +272,15 @@ dependencies {
     implementation 'com.otaliastudios:zoomlayout:1.9.0'
 
     implementation 'androidx.core:core-splashscreen:1.0.1'
+//
+//    implementation 'io.imqa:imqa-core:2.29.10'
+//    implementation 'io.imqa:imqa-mpm-client:2.29.10'
+//    implementation 'io.imqa:imqa-crash-client:2.29.10'
 
-    implementation 'io.imqa:imqa-core:2.28.01-SNAPSHOT'
-    implementation 'io.imqa:imqa-mpm-client:2.28.01-SNAPSHOT'
-    implementation 'io.imqa:imqa-crash-client:2.28.01-SNAPSHOT'
+    //implementation fileTree(dir: 'libs', include: ['*.jar', '*.aar'])
+    implementation files('libs/imqa-core-2.29.11.aar')
+    implementation files('libs/imqa-mpm-client-2.29.11.aar')
+    implementation files('libs/imqa-crash-client-2.29.11.aar')
 
 /**** Builds and flavors ****/
     // debugImplementation because LeakCanary should only run in debug builds.
@@ -284,19 +289,19 @@ dependencies {
 
 // NB: Android Studio can't find the imports; this does not affect the
 // actual build since Gradle can find them just fine.
-io.imqa.injector.IMQABuildOption imqaBuildOption = new io.imqa.injector.IMQABuildOption();
-
-imqaBuildOption.setProjectHomePath("/Users/kim/AndroidStudioProjects/Eternity")
-// 프로젝트의 경로 (ex:/user/workspace/project1)
-
-imqaBuildOption.setAndroidManifestPath("/Users/kim/AndroidStudioProjects/Eternity/app/build/intermediates/merged_manifest/debug/AndroidManifest.xml")
-// 빌드된 Manifest 파일의 경로 (ex:/Users/kim/AndroidStudioProjects/Eternity/app/build/intermediates/merged_manifest/debug/AndroidManifest.xml)
-
-imqaBuildOption.setJavaBuildPath("/Users/kim/AndroidStudioProjectsapp/build/intermediates/javac/debug/classes")
-// 자바 프로젝트일경우에만 추가 (ex:/user/workspace/project1/app/build/intermediates/javac/debug/classes)
-imqaBuildOption.setKotlinBuildPath("")
-
-
+//io.imqa.injector.IMQABuildOption imqaBuildOption = new io.imqa.injector.IMQABuildOption();
+//
+//imqaBuildOption.setProjectHomePath("/Users/kim/AndroidStudioProjects/Eternity")
+//// 프로젝트의 경로 (ex:/user/workspace/project1)
+//
+//imqaBuildOption.setAndroidManifestPath("/Users/kim/AndroidStudioProjects/Eternity/app/build/intermediates/merged_manifest/debug/AndroidManifest.xml")
+//// 빌드된 Manifest 파일의 경로 (ex:/Users/kim/AndroidStudioProjects/Eternity/app/build/intermediates/merged_manifest/debug/AndroidManifest.xml)
+//
+//imqaBuildOption.setJavaBuildPath("/Users/kim/AndroidStudioProjectsapp/build/intermediates/javac/debug/classes")
+//// 자바 프로젝트일경우에만 추가 (ex:/user/workspace/project1/app/build/intermediates/javac/debug/classes)
+//imqaBuildOption.setKotlinBuildPath("")
+//
+//
 io.imqa.IMQAPlugin imqaPlugin = new io.imqa.IMQAPlugin()
 imqaPlugin.init(project)
 new io.imqa.injector.GJavacAction(project.name).setConfiguration(project)

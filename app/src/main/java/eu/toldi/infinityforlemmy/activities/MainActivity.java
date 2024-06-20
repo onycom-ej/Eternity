@@ -136,6 +136,7 @@ import eu.toldi.infinityforlemmy.utils.CustomThemeSharedPreferencesUtils;
 import eu.toldi.infinityforlemmy.utils.LemmyUtils;
 import eu.toldi.infinityforlemmy.utils.SharedPreferencesUtils;
 import eu.toldi.infinityforlemmy.utils.Utils;
+import io.imqa.core.logs.IdentifierCollector;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -1214,7 +1215,7 @@ public class MainActivity extends BaseActivity implements SortTypeSelectionCallb
             return true;
         } else if (itemId == R.id.action_sort_main_activity) {
             Intent intent = new Intent(this, WebViewActivity.class);
-            Uri uri =Uri.parse("https://blog.imqa.io/");
+            Uri uri =Uri.parse("http://121.0.136.27:9600/");
             intent.setData(uri);
             startActivity(intent);
             //changeSortType();
