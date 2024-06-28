@@ -293,7 +293,7 @@ public class ViewUserDetailActivity extends BaseActivity implements SortTypeSele
         setTransparentStatusBarAfterToolbarCollapsed();
 
         super.onCreate(savedInstanceState);
-        IMQAMpmAgent.getInstance().startScreen("커스텀");
+//        IMQAMpmAgent.getInstance().startScreen("커스텀");
 
 
         setContentView(R.layout.activity_view_user_detail);

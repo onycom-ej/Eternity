@@ -5,7 +5,7 @@
     <EditTextPreference
         android:key="edit_server"
         android:title="Server URL"
-        android:defaultValue="http://52.231.231.51:3080/"
+        android:defaultValue="https://collector.imqa.io/"
         android:summary="Enter ServerURL"
         android:inputType="text" />
 
@@ -13,24 +13,27 @@
         android:key="edit_project"
         android:title="Project key"
         android:summary="Enter Project key"
-        android:defaultValue="$2a$05$cTP2gOyauFVGhfwpB/hOGOeQbf0neBDdekRQuQ8l1sUkPPhojVeeu^#1U8389ATPE/szowZGlK27A=="
+        android:defaultValue="$2b$05$RlPp1r0L4ElVcpn.lqEfl./hQ6BoUifHQf2Oe4qJxT/o6oGcbYY7C^#1U8389ATPE/szowZGlK27A=="
         android:inputType="text" />
 
     <EditTextPreference
         android:key="edit_customID"
         android:title="Custom ID"
+        android:defaultValue="TESTID"
         android:summary="Enter Custom ID (nullable)"
         android:inputType="text" />
 
     <EditTextPreference
         android:key="edit_customEmail"
         android:title="Custom E-mail"
+        android:defaultValue="TESTEMAIL"
         android:summary="Enter Custom E-mail (nullable)"
         android:inputType="text" />
 
     <EditTextPreference
         android:key="edit_customName"
         android:title="Custom name"
+        android:defaultValue="TESTNAME"
         android:summary="Enter Custom name (nullable)"
         android:inputType="text" />
 

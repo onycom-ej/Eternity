@@ -925,7 +925,7 @@ public class SearchResultActivity extends BaseActivity implements SortTypeSelect
     @Override
     protected void onResume() {
         super.onResume();
-        IMQAMpmAgent.getInstance().endScreen("커스텀");
+      //  IMQAMpmAgent.getInstance().endScreen("커스텀");
     }
 
 }

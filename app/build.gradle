@@ -1,7 +1,9 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    //id 'io.imqa'
 }
+
 def getCommitVersionCode = { ->
     try {
         def stdout = new ByteArrayOutputStream()
@@ -22,7 +24,7 @@ android {
         minSdk 21
         targetSdk 33
         versionCode 131
-        versionName "2.2"
+        versionName "2.4"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         javaCompileOptions {
             annotationProcessorOptions {
@@ -272,15 +274,15 @@ dependencies {
     implementation 'com.otaliastudios:zoomlayout:1.9.0'
 
     implementation 'androidx.core:core-splashscreen:1.0.1'
-//
-//    implementation 'io.imqa:imqa-core:2.29.10'
-//    implementation 'io.imqa:imqa-mpm-client:2.29.10'
-//    implementation 'io.imqa:imqa-crash-client:2.29.10'
 
-    //implementation fileTree(dir: 'libs', include: ['*.jar', '*.aar'])
-    implementation files('libs/imqa-core-2.29.11.aar')
-    implementation files('libs/imqa-mpm-client-2.29.11.aar')
-    implementation files('libs/imqa-crash-client-2.29.11.aar')
+    implementation 'io.imqa:imqa-core:2.29.11'
+    implementation 'io.imqa:imqa-mpm-client:2.29.11'
+    implementation 'io.imqa:imqa-crash-client:2.29.11'
+
+//    implementation fileTree(dir: 'libs', include: ['*.jar', '*.aar'])
+//    implementation files('libs/imqa-core-2.29.14.aar')
+//    implementation files('libs/imqa-mpm-client-2.29.14.aar')
+//    implementation files('libs/imqa-crash-client-2.29.14.aar')
 
 /**** Builds and flavors ****/
     // debugImplementation because LeakCanary should only run in debug builds.
@@ -301,7 +303,8 @@ dependencies {
 //// 자바 프로젝트일경우에만 추가 (ex:/user/workspace/project1/app/build/intermediates/javac/debug/classes)
 //imqaBuildOption.setKotlinBuildPath("")
 //
-//
+
+
 io.imqa.IMQAPlugin imqaPlugin = new io.imqa.IMQAPlugin()
 imqaPlugin.init(project)
 new io.imqa.injector.GJavacAction(project.name).setConfiguration(project)

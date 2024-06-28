@@ -1,5 +1,7 @@
 package eu.toldi.infinityforlemmy;
 
+import static android.util.Log.e;
+
 import android.app.Activity;
 import android.app.Application;
 import android.content.Intent;
@@ -46,8 +48,11 @@ import eu.toldi.infinityforlemmy.font.TitleFontFamily;
 import eu.toldi.infinityforlemmy.settings.SettheImqaFragment;
 import eu.toldi.infinityforlemmy.utils.SharedPreferencesUtils;
 import eu.toldi.infinityforlemmy.utils.Utils;
+import io.imqa.core.IMQAOption;
 import io.imqa.core.logs.IdentifierCollector;
 
+import io.imqa.crash.IMQACrashAgent;
+import io.imqa.crash.report.ErrorRank;
 import okhttp3.Call;
 import okhttp3.OkHttpClient;
 
@@ -106,6 +111,8 @@ public class Infinity extends Application implements LifecycleObserver {
                 .setContext(this, "")
                 .setProjectKey(keyValue)
                 .init();
+        Log.d("SERVERRRRR", imqaOption.getServerUrl());
+
 
         new Thread(() -> {
             try {
