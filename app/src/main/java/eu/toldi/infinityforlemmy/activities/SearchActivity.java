@@ -61,6 +61,7 @@ import eu.toldi.infinityforlemmy.utils.APIUtils;
 import eu.toldi.infinityforlemmy.utils.LemmyUtils;
 import eu.toldi.infinityforlemmy.utils.SharedPreferencesUtils;
 import eu.toldi.infinityforlemmy.utils.Utils;
+import io.imqa.mpm.IMQAMpmAgent;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -149,6 +150,13 @@ public class SearchActivity extends BaseActivity {
     private Call<String> subredditAutocompleteCall;
     RecentSearchQueryViewModel mRecentSearchQueryViewModel;
 
+
+    static {
+        System.loadLibrary("native-lib");
+    }
+
+    private native void triggerNativeError();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         ((Infinity) getApplication()).getAppComponent().inject(this);
@@ -158,6 +166,8 @@ public class SearchActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_search);
+
+        triggerNativeError();
 
         ButterKnife.bind(this);
 

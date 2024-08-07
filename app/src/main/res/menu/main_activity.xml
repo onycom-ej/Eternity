@@ -29,17 +29,22 @@
         android:title="ANR"
         android:icon="@drawable/ic_sort_toolbar_24dp"
         app:showAsAction="ifRoom" />
-
+    <item
+        android:id="@+id/action_anr2"
+        android:orderInCategory="5"
+        android:title="ANR 무한루프"
+        android:icon="@drawable/ic_sort_toolbar_24dp"
+        app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/action_refresh_main_activity"
-        android:orderInCategory="5"
+        android:orderInCategory="6"
         android:title="@string/action_refresh"
         app:showAsAction="never" />
 
     <item
         android:id="@+id/action_change_post_layout_main_activity"
-        android:orderInCategory="6"
+        android:orderInCategory="7"
         android:title="@string/action_change_post_layout"
         app:showAsAction="never" />
 </menu>

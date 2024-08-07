@@ -656,6 +656,10 @@ public class PostFragment extends Fragment implements FragmentCommunicator {
         } else if (postType == PostPagingSource.TYPE_USER) {
             username = getArguments().getString(EXTRA_USER_NAME);
             where = getArguments().getString(EXTRA_USER_WHERE);
+
+            if (username == null) {
+                username = "kiiim"; // 기본값 설정
+            }
             if (savedInstanceState == null) {
                 postFragmentId += username.hashCode();
             }
@@ -1469,9 +1473,20 @@ public class PostFragment extends Fragment implements FragmentCommunicator {
     }
 
     @Override
+    public void onStart() {
+        super.onStart();
+        // EventBus 등록
+        if (!EventBus.getDefault().isRegistered(this)) {
+            EventBus.getDefault().register(this);
+        }
+    }
+    @Override
     public void onStop() {
         super.onStop();
         saveCache();
+        if (EventBus.getDefault().isRegistered(this)) {
+            EventBus.getDefault().unregister(this);
+        }
     }
 
     private void saveCache() {

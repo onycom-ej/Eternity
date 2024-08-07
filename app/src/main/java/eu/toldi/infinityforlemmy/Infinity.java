@@ -10,6 +10,8 @@ import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 import android.view.WindowManager;
 import android.widget.Toast;
@@ -91,6 +93,7 @@ public class Infinity extends Application implements LifecycleObserver {
         String NameValue = mSharedPreferences.getString("edit_customName", "");
 
         io.imqa.core.IMQAOption imqaOption = new io.imqa.core.IMQAOption();
+
         imqaOption.setBuildType(false);
         imqaOption.setUploadPeriod(true);
         imqaOption.setCrashDirectUploadFlag(true);
@@ -100,11 +103,12 @@ public class Infinity extends Application implements LifecycleObserver {
         imqaOption.setPrintLog(true);
         imqaOption.setBehaviorTracing(true);
         imqaOption.setEventTracing(true);
-        imqaOption.setDumpInterval(5000);
-        imqaOption.setFileInterval(1);
+        imqaOption.setDumpInterval(30000);
+        imqaOption.setFileInterval(5);
 //
         imqaOption.setServerUrl(serverValue);
         imqaOption.setCrashServerUrl(serverValue);
+
 
         io.imqa.mpm.IMQAMpmAgent.getInstance()
                 .setOption(imqaOption)
@@ -113,6 +117,9 @@ public class Infinity extends Application implements LifecycleObserver {
                 .init();
         Log.d("SERVERRRRR", imqaOption.getServerUrl());
 
+
+     //   IMQACrashAgent.sendCustomException(new Exception("d"));
+        im
 
         new Thread(() -> {
             try {

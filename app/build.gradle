@@ -1,6 +1,8 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id 'com.google.gms.google-services'
+    id 'com.google.firebase.crashlytics'
     //id 'io.imqa'
 }
 
@@ -21,15 +23,20 @@ android {
     compileSdk 33
     defaultConfig {
         applicationId "eu.toldi.infinityforlemmy"
-        minSdk 21
+        minSdk 24
         targetSdk 33
         versionCode 131
-        versionName "2.4"
+        versionName "2.6.2"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         javaCompileOptions {
             annotationProcessorOptions {
                 arguments = [eventBusIndex: 'eu.toldi.infinityforlemmy.EventBusIndex']
             }
+        }
+    }
+    externalNativeBuild {
+        cmake {
+            path "src/main/cpp/CMakeLists.txt"
         }
     }
     buildTypes {
@@ -76,6 +83,7 @@ android {
 
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
+        main.jni.srcDirs = ['src/main/cpp']
     }
 
     compileOptions {
@@ -171,6 +179,14 @@ dependencies {
     implementation "com.google.android.exoplayer:exoplayer-smoothstreaming:$exoplayerVersion"
 
 /** Third-party **/
+
+    /**Firebase**/
+    implementation platform('com.google.firebase:firebase-bom:33.1.2')
+    implementation 'com.google.firebase:firebase-analytics'
+   // implementation 'com.google.firebase:firebase-crashlytics:18.4.3'
+
+    implementation("com.google.firebase:firebase-crashlytics")
+
 
 /**** Backend logic ****/
 
@@ -275,9 +291,10 @@ dependencies {
 
     implementation 'androidx.core:core-splashscreen:1.0.1'
 
-    implementation 'io.imqa:imqa-core:2.29.11'
-    implementation 'io.imqa:imqa-mpm-client:2.29.11'
-    implementation 'io.imqa:imqa-crash-client:2.29.11'
+    def imqaVersion = "2.29.194-SNAPSHOT"
+    implementation "io.imqa:imqa-core:$imqaVersion"
+    implementation "io.imqa:imqa-mpm-client:$imqaVersion"
+    implementation "io.imqa:imqa-crash-client:$imqaVersion"
 
 //    implementation fileTree(dir: 'libs', include: ['*.jar', '*.aar'])
 //    implementation files('libs/imqa-core-2.29.14.aar')
@@ -303,31 +320,31 @@ dependencies {
 //// 자바 프로젝트일경우에만 추가 (ex:/user/workspace/project1/app/build/intermediates/javac/debug/classes)
 //imqaBuildOption.setKotlinBuildPath("")
 //
-
-
-io.imqa.IMQAPlugin imqaPlugin = new io.imqa.IMQAPlugin()
-imqaPlugin.init(project)
-new io.imqa.injector.GJavacAction(project.name).setConfiguration(project)
-android.applicationVariants.all { variant ->
-    variant.javaCompile.doLast { task ->
-        {
-            new io.imqa.injector.CompileAction(
-                    io.imqa.injector.util.BuildOption.BUILD_LOCATION_TYPE.kotlin,
-                    project.name,
-                    io.imqa.injector.GJavacAction.convertBuildType(variant.getBuildType()),
-                    io.imqa.injector.GJavacAction.makeFlavor(variant.getBuildType().name,
-                            variant)
-            ).execute(task)
-            new io.imqa.injector.CompileAction(
-                    io.imqa.injector.util.BuildOption.BUILD_LOCATION_TYPE.javacClasses,
-                    project.name,
-                    io.imqa.injector.GJavacAction.convertBuildType(variant.getBuildType()),
-                    io.imqa.injector.GJavacAction.makeFlavor(variant.getBuildType().name,
-                            variant)
-            ).execute(task)
-        }
-    }
-}
+//
+//
+//io.imqa.IMQAPlugin imqaPlugin = new io.imqa.IMQAPlugin()
+//imqaPlugin.init(project)
+//new io.imqa.injector.GJavacAction(project.name).setConfiguration(project)
+//android.applicationVariants.all { variant ->
+//    variant.javaCompile.doLast { task ->
+//        {
+//            new io.imqa.injector.CompileAction(
+//                    io.imqa.injector.util.BuildOption.BUILD_LOCATION_TYPE.kotlin,
+//                    project.name,
+//                    io.imqa.injector.GJavacAction.convertBuildType(variant.getBuildType()),
+//                    io.imqa.injector.GJavacAction.makeFlavor(variant.getBuildType().name,
+//                            variant)
+//            ).execute(task)
+//            new io.imqa.injector.CompileAction(
+//                    io.imqa.injector.util.BuildOption.BUILD_LOCATION_TYPE.javacClasses,
+//                    project.name,
+//                    io.imqa.injector.GJavacAction.convertBuildType(variant.getBuildType()),
+//                    io.imqa.injector.GJavacAction.makeFlavor(variant.getBuildType().name,
+//                            variant)
+//            ).execute(task)
+//        }
+//    }
+//}
 
 import com.android.tools.profgen.ArtProfileKt
 import com.android.tools.profgen.ArtProfileSerializer

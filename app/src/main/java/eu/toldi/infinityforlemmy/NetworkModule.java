@@ -15,6 +15,7 @@ import eu.toldi.infinityforlemmy.comment.LemmyCommentAPI;
 import eu.toldi.infinityforlemmy.post.LemmyPostAPI;
 import eu.toldi.infinityforlemmy.privatemessage.LemmyPrivateMessageAPI;
 import eu.toldi.infinityforlemmy.utils.APIUtils;
+import io.imqa.mpm.network.MPMInterceptor;
 import okhttp3.ConnectionPool;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
@@ -29,6 +30,7 @@ abstract class NetworkModule {
     @Singleton
     static OkHttpClient provideBaseOkhttp() {
         return new OkHttpClient.Builder()
+                .addNetworkInterceptor(new MPMInterceptor())
                 .connectTimeout(30, TimeUnit.SECONDS)
                 .readTimeout(30, TimeUnit.SECONDS)
                 .writeTimeout(30, TimeUnit.SECONDS)

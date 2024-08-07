@@ -94,16 +94,27 @@ public class WebViewActivity extends BaseActivity {
 
         webView.getSettings().setJavaScriptEnabled(true);
         webView.getSettings().setDomStorageEnabled(true);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            webView.getSettings().setSafeBrowsingEnabled(false);
+        }
         WebviewInterface imqaJavascript = new WebviewInterface();
        // imqaJavascript.setSendErrorBridge(new CrashWebviewBridge(this));
         imqaJavascript.setWebViewErrorBridge(new WebViewErrorBridge());
         imqaJavascript.setCustomWebViewErrorBridge(new CustomWebViewErrorBridge());
         webView.addJavascriptInterface(imqaJavascript, "ImqaBridge");
 
+
+        webView.setWebViewClient(new WebViewClient());
+
+        Uri uri = getIntent().getData();
+        if (uri != null) {
+            webView.loadUrl(uri.toString());
+        }
+
         url = getIntent().getDataString();
         if (savedInstanceState == null) {
             toolbar.setTitle(url);
-            webView.loadUrl(url);
+         //   webView.loadUrl(url);
         }
 
         WebViewClient client = new WebViewClient() {

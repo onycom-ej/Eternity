@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "971439131251",
+    "project_id": "eternity-31fb2",
+    "storage_bucket": "eternity-31fb2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:971439131251:android:38abec5962870685b5b806",
+        "android_client_info": {
+          "package_name": "eu.toldi.infinityforlemmy.debug"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAwqL-s97ymcyeeJUYKlp6MVY319lV4FL4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

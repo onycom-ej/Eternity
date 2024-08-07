@@ -13,6 +13,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -58,6 +59,7 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.analytics.FirebaseAnalytics;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -67,6 +69,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.concurrent.Executor;
 import java.util.concurrent.TimeUnit;
 
@@ -137,6 +140,7 @@ import eu.toldi.infinityforlemmy.utils.LemmyUtils;
 import eu.toldi.infinityforlemmy.utils.SharedPreferencesUtils;
 import eu.toldi.infinityforlemmy.utils.Utils;
 import io.imqa.core.logs.IdentifierCollector;
+import io.imqa.mpm.IMQAMpmAgent;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -146,6 +150,10 @@ public class MainActivity extends BaseActivity implements SortTypeSelectionCallb
         PostTypeBottomSheetFragment.PostTypeSelectionCallback, PostLayoutBottomSheetFragment.PostLayoutSelectionCallback,
         ActivityToolbarInterface, FABMoreOptionsBottomSheetFragment.FABOptionSelectionCallback,
         RandomBottomSheetFragment.RandomOptionSelectionCallback, MarkPostAsReadInterface, RecyclerViewContentScrollingInterface {
+
+
+
+
 
     static final String EXTRA_MESSSAGE_FULLNAME = "ENF";
     static final String EXTRA_NEW_ACCOUNT_NAME = "ENAN";
@@ -258,7 +266,7 @@ public class MainActivity extends BaseActivity implements SortTypeSelectionCallb
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        SplashScreen.installSplashScreen(this);
+        //.installSplashScreen(this);
 
         ((Infinity) getApplication()).getAppComponent().inject(this);
 
@@ -269,6 +277,20 @@ public class MainActivity extends BaseActivity implements SortTypeSelectionCallb
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_main);
+
+        FirebaseAnalytics firebaseAnalytics = FirebaseAnalytics.getInstance(this);
+
+
+
+//        try {
+//            // JNI 함수 호출
+//            triggerNativeError();
+//        } catch (Exception e) {
+//            // JNI 호출 중 발생한 예외 처리
+//            Log.d("MainActvity", "JNI ERROR " + e.getMessage());
+//            //textView.setText("JNI 에러 발생: " + e.getMessage());
+//            e.printStackTrace();
+//        }
 
         ButterKnife.bind(this);
 
@@ -1215,20 +1237,34 @@ public class MainActivity extends BaseActivity implements SortTypeSelectionCallb
             return true;
         } else if (itemId == R.id.action_sort_main_activity) {
             Intent intent = new Intent(this, WebViewActivity.class);
-            Uri uri =Uri.parse("http://121.0.136.27:9600/");
+            String WcrashValue = mSharedPreferences.getString("edit_wcrash", "");
+            Uri uri =Uri.parse(WcrashValue);
             intent.setData(uri);
             startActivity(intent);
             //changeSortType();
             return true;
         } else if (itemId == R.id.action_crash) {
             int a = 1/0;
-        }
-        else if (itemId == R.id.action_anr) {
-        try {
-            Thread.sleep(15000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        } else if (itemId == R.id.action_anr) {
+            long endTime = System.currentTimeMillis() + 10000; // 10초 동안 실행
+            while (System.currentTimeMillis() < endTime) {
+                // 무거운 작업을 수행하여 CPU 사용량을 높임
+                double value = Math.random();
+                for (int i = 0; i < 1000000; i++) {
+                    value = Math.sin(value) + Math.cos(value);
+                }
+            }
+        } else if (itemId == R.id.action_anr2) {
+            new Handler(Looper.getMainLooper()).post(new Runnable() {
+                @Override
+                public void run() {
+                    while (true) {
+                        // 무한 루프를 실행하여 메인 스레드를 차단
+                    }
+                }
+            });
+
+
         return true;
 
     }else if (itemId == R.id.action_refresh_main_activity)
@@ -1707,7 +1743,7 @@ public class MainActivity extends BaseActivity implements SortTypeSelectionCallb
                     if (qualifiedName.startsWith("@")) {
                         qualifiedName = qualifiedName.substring(1);
                     }
-                    userIntent.putExtra(ViewUserDetailActivity.EXTRA_QUALIFIED_USER_NAME_KEY, qualifiedName);
+                    userIntent.putExtra(ViewUserDetailActivity.EXTRA_QUALIFIED_USER_NAME_KEY, "kiiim");
                     startActivity(userIntent);
                 })
                 .setNegativeButton(R.string.cancel, (dialogInterface, i) -> {

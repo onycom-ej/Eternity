@@ -10,6 +10,13 @@
         android:inputType="text" />
 
     <EditTextPreference
+        android:key="edit_wcrash"
+        android:title="Wcrash URL"
+        android:defaultValue="http://121.0.136.27:9600/"
+        android:summary="Enter WcrashURL"
+        android:inputType="text" />
+
+    <EditTextPreference
         android:key="edit_project"
         android:title="Project key"
         android:summary="Enter Project key"

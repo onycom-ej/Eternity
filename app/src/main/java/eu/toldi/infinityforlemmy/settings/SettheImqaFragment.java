@@ -8,8 +8,10 @@ import androidx.preference.EditTextPreference;
 import androidx.preference.Preference;
 
 import eu.toldi.infinityforlemmy.R;
+import eu.toldi.infinityforlemmy.activities.MainActivity;
 import eu.toldi.infinityforlemmy.customviews.CustomFontPreferenceFragmentCompat;
 import io.imqa.crash.IMQACrashAgent;
+import io.imqa.mpm.IMQAMpmAgent;
 
 public class SettheImqaFragment  extends CustomFontPreferenceFragmentCompat {
 
@@ -18,6 +20,7 @@ public class SettheImqaFragment  extends CustomFontPreferenceFragmentCompat {
         setPreferencesFromResource(R.xml.setimqa_preferences, rootKey);
 
         configureEditTextPreference("edit_server");
+        configureEditTextPreference("edit_wcrash");
         configureEditTextPreference("edit_project");
         configureEditTextPreference("edit_customID");
         configureEditTextPreference("edit_customEmail");
@@ -49,7 +52,8 @@ public class SettheImqaFragment  extends CustomFontPreferenceFragmentCompat {
             Toast.makeText(requireContext(), "재시작후 반영됩니다!", Toast.LENGTH_SHORT).show();
             return true; // 이벤트 처리 완료를 나타냄
         } else if (preference.getKey().equals("CUSTOM_CRASH")) {
-         //   IMQACrashAgent.sendCustomException(new Exception("Custom_test"));
+            IMQACrashAgent.sendCustomException(new Exception("Custom_test"));
+            Toast.makeText(getContext(), "커스텀 크래시 발생!", Toast.LENGTH_SHORT).show();
         }
         return super.onPreferenceTreeClick(preference);
     }
