@@ -167,7 +167,7 @@ public class SearchActivity extends BaseActivity {
 
         setContentView(R.layout.activity_search);
 
-        triggerNativeError();
+       // triggerNativeError();
 
         ButterKnife.bind(this);
 

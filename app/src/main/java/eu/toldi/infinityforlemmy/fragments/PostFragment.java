@@ -16,6 +16,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
+import android.util.Log;
 import android.view.HapticFeedbackConstants;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -285,6 +286,8 @@ public class PostFragment extends Fragment implements FragmentCommunicator {
         if (mAdapter != null && mPostRecyclerView != null) {
             mPostRecyclerView.onWindowVisibilityChanged(View.VISIBLE);
         }
+
+        Log.d("Fragment Lifecycle","Fragment onResume");
     }
 
     private boolean scrollPostsByCount(int count) {
@@ -317,7 +320,7 @@ public class PostFragment extends Fragment implements FragmentCommunicator {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_post, container, false);
-
+        Log.d("Fragment Lifecycle","Fragment onCreateView");
         ((Infinity) activity.getApplication()).getAppComponent().inject(this);
 
         unbinder = ButterKnife.bind(this, rootView);
@@ -383,6 +386,7 @@ public class PostFragment extends Fragment implements FragmentCommunicator {
                     }
                 }
                 lazyModeHandler.postDelayed(this, (long) (lazyModeInterval * 1000));
+
             }
         };
 
@@ -1476,6 +1480,7 @@ public class PostFragment extends Fragment implements FragmentCommunicator {
     public void onStart() {
         super.onStart();
         // EventBus 등록
+        Log.d("Fragment Lifecycle","Fragment onStart");
         if (!EventBus.getDefault().isRegistered(this)) {
             EventBus.getDefault().register(this);
         }

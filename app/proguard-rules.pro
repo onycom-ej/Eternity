@@ -5,7 +5,7 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
--dontobfuscate
+#-dontobfuscate
 -keepattributes SourceFile,LineNumberTable
 
 ## Preferences reflection
@@ -75,6 +75,17 @@
 -keep class * implements com.google.gson.TypeAdapterFactory
 -keep class * implements com.google.gson.JsonSerializer
 -keep class * implements com.google.gson.JsonDeserializer
+
+  -keepattributes SourceFile,LineNumberTable
+  -printmapping map.txt
+
+  # IMQA Proguard
+  -keep class io.imqa.** { *; }
+  -dontwarn io.imqa.**
+
+  # okhttp3 Proguard
+  -dontwarn okhttp3.**
+  -dontwarn okio.**p
 
 # Prevent R8 from leaving Data object members always null
 -keepclassmembers,allowobfuscation class * {

@@ -3,6 +3,8 @@ package eu.toldi.infinityforlemmy.activities;
 import static androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_NO;
 import static androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_YES;
 
+import static java.sql.DriverManager.println;
+
 import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
@@ -282,6 +284,7 @@ public class MainActivity extends BaseActivity implements SortTypeSelectionCallb
 
 
 
+
 //        try {
 //            // JNI 함수 호출
 //            triggerNativeError();
@@ -310,6 +313,7 @@ public class MainActivity extends BaseActivity implements SortTypeSelectionCallb
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             Window window = getWindow();
+
 
             if (isChangeStatusBarIconColor()) {
                 addOnOffsetChangedListener(appBarLayout);
@@ -409,6 +413,11 @@ public class MainActivity extends BaseActivity implements SortTypeSelectionCallb
         }
     }
 
+    @Override
+    protected void onStart(){
+        super.onStart();
+        Log.e("MainActivity Lifecycle", "onStart");
+    }
     @Override
     public SharedPreferences getDefaultSharedPreferences() {
         return mSharedPreferences;

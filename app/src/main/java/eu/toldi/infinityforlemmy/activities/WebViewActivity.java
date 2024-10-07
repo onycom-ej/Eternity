@@ -6,6 +6,7 @@ import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -45,6 +46,7 @@ import io.imqa.crash.webview.WebViewErrorBridge;
 import io.imqa.mpm.IMQAMpmAgent;
 import io.imqa.mpm.network.webview.WebviewInterface;
 
+
 public class WebViewActivity extends BaseActivity {
 
     @BindView(R.id.coordinator_layout_web_view_activity)
@@ -64,7 +66,7 @@ public class WebViewActivity extends BaseActivity {
     @Inject
     CustomThemeWrapper mCustomThemeWrapper;
     private String url;
-
+    private WebviewInterface imqaJavascript;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         ((Infinity) getApplication()).getAppComponent().inject(this);
@@ -98,7 +100,8 @@ public class WebViewActivity extends BaseActivity {
             webView.getSettings().setSafeBrowsingEnabled(false);
         }
         WebviewInterface imqaJavascript = new WebviewInterface();
-       // imqaJavascript.setSendErrorBridge(new CrashWebviewBridge(this));
+    //   imqaJavascript.setSendErrorBridge(new CrashWebviewBridge(this));
+
         imqaJavascript.setWebViewErrorBridge(new WebViewErrorBridge());
         imqaJavascript.setCustomWebViewErrorBridge(new CustomWebViewErrorBridge());
         webView.addJavascriptInterface(imqaJavascript, "ImqaBridge");
@@ -130,6 +133,14 @@ public class WebViewActivity extends BaseActivity {
             }
         };
         webView.setWebViewClient(client);
+    }
+
+
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        if (imqaJavascript != null) {
+           // imqaJavascript.onOrientationChange(newConfig.orientation);
+        }
     }
 
     @Override

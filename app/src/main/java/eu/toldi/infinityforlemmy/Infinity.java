@@ -2,6 +2,8 @@ package eu.toldi.infinityforlemmy;
 
 import static android.util.Log.e;
 
+import static java.sql.DriverManager.println;
+
 import android.app.Activity;
 import android.app.Application;
 import android.content.Intent;
@@ -55,6 +57,7 @@ import io.imqa.core.logs.IdentifierCollector;
 
 import io.imqa.crash.IMQACrashAgent;
 import io.imqa.crash.report.ErrorRank;
+import io.imqa.mpm.IMQAMpmAgent;
 import okhttp3.Call;
 import okhttp3.OkHttpClient;
 
@@ -108,6 +111,11 @@ public class Infinity extends Application implements LifecycleObserver {
 //
         imqaOption.setServerUrl(serverValue);
         imqaOption.setCrashServerUrl(serverValue);
+       // imqaOption.setStackCollect(true);
+
+
+
+
 
 
         io.imqa.mpm.IMQAMpmAgent.getInstance()
@@ -115,23 +123,32 @@ public class Infinity extends Application implements LifecycleObserver {
                 .setContext(this, "")
                 .setProjectKey(keyValue)
                 .init();
+
         Log.d("SERVERRRRR", imqaOption.getServerUrl());
 
 
      //   IMQACrashAgent.sendCustomException(new Exception("d"));
-        im
-
+//        IMQAMpmAgent.getInstance().setInitListener(new IMQAMpmAgent.IMQAInitListener() {
+//            @Override
+//            public void onInitComplete(boolean success) {
+//                IdentifierCollector.setCustomUserId(IDValue);
+//                IdentifierCollector.setCustomUserName(NameValue);
+//                IdentifierCollector.setCustomUserMail(EmailValue);
+//            }
+//        });
         new Thread(() -> {
             try {
                 Thread.sleep(2000);
+                Log.d("SERVERRRRR", IDValue);
                 IdentifierCollector.setCustomUserId(IDValue);
                 IdentifierCollector.setCustomUserName(NameValue);
                 IdentifierCollector.setCustomUserMail(EmailValue);
+
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }).start();
-
+        Log.d("IMQAAAA",serverValue);
         Log.d("IMQAAAA",imqaOption.getProjectKey());
         Log.d("IMQAAAA",imqaOption.getServerUrl());
 
